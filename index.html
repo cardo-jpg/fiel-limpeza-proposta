@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Proposta Comercial — Fiel Limpeza · Brusque/SC</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Nunito',sans-serif;background:#08111f;}
+
+/* DECK */
+.deck{width:100%;height:100%;position:relative;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:56px 80px;opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s ease;transform:translateX(60px);overflow-y:auto;}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.out{opacity:0;transform:translateX(-60px);}
+
+/* NAV */
+.nav{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;z-index:100;}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:all .2s;}
+.nav-dot.active{background:#38bdf8;width:24px;border-radius:4px;}
+.nav-arr{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.nav-arr:hover{background:rgba(255,255,255,.12);}
+.slide-num{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.3);min-width:60px;text-align:center;}
+
+/* SLIDE BACKGROUNDS */
+.s-cover{background:linear-gradient(135deg,#062033 0%,#0a1b3e 55%,#072a3a 100%);}
+.s-dark{background:#0b1726;}
+.s-blue{background:linear-gradient(135deg,#08172b 0%,#062a3d 100%);}
+.s-mid{background:linear-gradient(135deg,#0f1a2b 0%,#0c2433 100%);}
+.s-cta{background:linear-gradient(135deg,#0a3a52 0%,#0d2a4a 100%);}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);border-radius:20px;padding:5px 14px;font-size:.72rem;font-weight:800;color:#38bdf8;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;width:fit-content;}
+.badge-green{background:rgba(74,222,128,.1);border-color:rgba(74,222,128,.3);color:#4ade80;}
+.badge-red{background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.3);color:#f87171;}
+
+/* TYPOGRAPHY */
+h1{font-size:3.3rem;font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.5px;}
+h1 em{color:#38bdf8;font-style:normal;}
+h2{font-size:2.05rem;font-weight:900;color:#fff;line-height:1.12;margin-bottom:8px;}
+h2 em{color:#38bdf8;font-style:normal;}
+.sub{font-size:1rem;color:rgba(255,255,255,.5);margin-top:12px;font-weight:600;}
+.lead{font-size:1.06rem;color:rgba(255,255,255,.75);line-height:1.65;max-width:820px;margin-top:14px;}
+.eyebrow{font-size:.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#38bdf8;margin-bottom:14px;}
+
+/* DIVIDER */
+.div{height:1px;background:rgba(255,255,255,.08);margin:24px 0;}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px;}
+.stat-grid.three{grid-template-columns:repeat(3,1fr);}
+.stat-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px 20px;position:relative;overflow:hidden;}
+.stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;}
+.stat-box.c1::before{background:#38bdf8;}
+.stat-box.c2::before{background:#4ade80;}
+.stat-box.c3::before{background:#f59e0b;}
+.stat-box.c4::before{background:#a78bfa;}
+.stat-lbl{font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;}
+.stat-v{font-size:2rem;font-weight:900;color:#fff;line-height:1;letter-spacing:-.5px;}
+.stat-v.blue{color:#38bdf8;}
+.stat-v.green{color:#4ade80;}
+.stat-v.red{color:#f87171;}
+.stat-v.amber{color:#f59e0b;}
+.stat-s{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:6px;line-height:1.4;}
+
+/* PROBLEM LIST */
+.prob-list{display:flex;flex-direction:column;gap:14px;margin-top:28px;max-width:900px;}
+.prob-item{display:flex;gap:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-left:3px solid #f87171;border-radius:0 12px 12px 0;padding:16px 18px;}
+.prob-icon{font-size:1.3rem;flex-shrink:0;margin-top:1px;}
+.prob-title{font-size:.9rem;font-weight:800;color:#fff;margin-bottom:4px;}
+.prob-desc{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.55;}
+
+/* PILLARS */
+.pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px;}
+.pillar{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.18);border-radius:16px;padding:26px 22px;}
+.pillar-ico{width:46px;height:46px;border-radius:12px;background:rgba(56,189,248,.14);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:16px;}
+.pillar h4{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:8px;}
+.pillar p{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6;}
+
+/* STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px;}
+.step{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 22px;display:flex;gap:16px;align-items:flex-start;}
+.step-n{width:34px;height:34px;border-radius:9px;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.3);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:900;color:#38bdf8;flex-shrink:0;}
+.step-title{font-size:.92rem;font-weight:800;color:#fff;margin-bottom:4px;}
+.step-desc{font-size:.76rem;color:rgba(255,255,255,.5);line-height:1.55;}
+
+/* DELIVERABLES */
+.deliv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 40px;margin-top:28px;max-width:920px;}
+.deliv-item{display:flex;align-items:flex-start;gap:12px;padding:8px 0;}
+.deliv-check{color:#4ade80;font-weight:900;font-size:1rem;flex-shrink:0;margin-top:1px;}
+.deliv-text{font-size:.88rem;color:rgba(255,255,255,.78);line-height:1.45;}
+.deliv-text b{color:#fff;}
+
+/* HIGHLIGHT BOX */
+.hl-box{background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.2);border-radius:16px;padding:24px 28px;margin-top:28px;max-width:900px;}
+.hl-box h3{font-size:1.05rem;font-weight:900;color:#4ade80;margin-bottom:8px;}
+.hl-box p{font-size:.86rem;color:rgba(255,255,255,.68);line-height:1.65;}
+
+/* SPOTLIGHT (Limpa Mofo) */
+.spot{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;margin-top:30px;}
+.spot-card{background:linear-gradient(135deg,rgba(56,189,248,.1),rgba(74,222,128,.06));border:1px solid rgba(56,189,248,.25);border-radius:20px;padding:34px 32px;}
+.spot-tag{display:inline-block;background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);color:#f87171;font-size:.66rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px;}
+.spot-card h3{font-size:1.6rem;font-weight:900;color:#fff;margin-bottom:10px;}
+.spot-card p{font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.6;}
+.spot-goal{display:flex;align-items:baseline;gap:10px;margin-top:18px;}
+.spot-goal .num{font-size:3rem;font-weight:900;color:#4ade80;line-height:1;}
+.spot-goal .lbl{font-size:.85rem;font-weight:700;color:rgba(255,255,255,.5);}
+
+/* LOGO */
+.logo{display:flex;align-items:center;gap:10px;position:fixed;top:22px;left:32px;z-index:100;}
+.logo-box{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0284c7,#38bdf8);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:900;color:#fff;}
+.logo-name{font-size:.7rem;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.5px;line-height:1.3;}
+
+/* CONTACT */
+.contact-row{display:flex;gap:40px;margin-top:30px;flex-wrap:wrap;}
+.contact-item .c-lbl{font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.contact-item .c-val{font-size:1.05rem;font-weight:800;color:#fff;}
+
+/* COMPARE (antes/depois estratégia) */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px;}
+.cmp-col{border-radius:16px;padding:26px 24px;}
+.cmp-col.bad{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.2);}
+.cmp-col.good{background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.25);}
+.cmp-col h4{font-size:.92rem;font-weight:900;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.cmp-col.bad h4{color:#f87171;}
+.cmp-col.good h4{color:#4ade80;}
+.cmp-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.cmp-col li{font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.45;display:flex;gap:9px;align-items:flex-start;}
+.cmp-col.bad li::before{content:'✕';color:#f87171;font-weight:900;flex-shrink:0;}
+.cmp-col.good li::before{content:'✓';color:#4ade80;font-weight:900;flex-shrink:0;}
+
+@media(max-width:820px){
+  .slide{padding:80px 28px 90px;}
+  h1{font-size:2.1rem;} h2{font-size:1.45rem;}
+  .stat-grid,.stat-grid.three,.pillar-grid{grid-template-columns:1fr;}
+  .steps-grid,.deliv-grid,.spot,.cmp{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="logo">
+  <div class="logo-box">C</div>
+  <span class="logo-name">CARDO<br>MARKETING</span>
+</div>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 — CAPA -->
+  <div class="slide s-cover active" data-slide="0">
+    <div class="badge">Proposta Comercial · 2026</div>
+    <h1>Fazer Brusque trocar de<br>marca pela <em>Fiel.</em></h1>
+    <p class="lead">Uma estratégia de marca para a Fiel Limpeza: menos campanhas soltas, mais foco. Construir desejo, comunicar a experiência de usar Fiel e transformar isso em mais gente entrando nas lojas — todos os dias.</p>
+    <div class="div"></div>
+    <p style="color:rgba(255,255,255,.4);font-size:.85rem;font-weight:700;">Preparado por Cardo Marketing &nbsp;·&nbsp; para Fiel Limpeza — Brusque/SC</p>
+  </div>
+
+  <!-- SLIDE 2 — CENÁRIO ATUAL -->
+  <div class="slide s-dark" data-slide="1">
+    <div class="eyebrow">O cenário atual</div>
+    <h2>O problema não é falta de anúncio.<br><em>É falta de foco.</em></h2>
+    <p class="lead">Hoje a Fiel roda <b style="color:#f87171;">23 campanhas no Meta ao mesmo tempo</b>. Verba pulverizada, mensagens competindo entre si e nenhuma com força suficiente para construir marca. Fazer tudo, ao mesmo tempo, é o mesmo que não fazer nada.</p>
+    <div class="cmp">
+      <div class="cmp-col bad">
+        <h4>⚠️ Como está hoje</h4>
+        <ul>
+          <li>23 campanhas disputando a mesma verba</li>
+          <li>Comunicação dispersa, sem identidade clara</li>
+          <li>Foco em "vender produto", não em construir desejo</li>
+          <li>Difícil medir o que realmente funciona</li>
+        </ul>
+      </div>
+      <div class="cmp-col good">
+        <h4>✓ Para onde vamos levar</h4>
+        <ul>
+          <li>Começar com 1 campanha de branding bem feita</li>
+          <li>Uma mensagem forte: a experiência Fiel</li>
+          <li>Carro-chefe definido para puxar o resto</li>
+          <li>Verba enxuta, medida e escalada com critério</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — O VERDADEIRO DESAFIO -->
+  <div class="slide s-mid" data-slide="2">
+    <div class="eyebrow">O verdadeiro desafio</div>
+    <h2>Produto de limpeza é mercado<br>de <em>hábito.</em></h2>
+    <p class="lead">O cliente já tem uma marca de confiança no armário. Para ele trocar pela Fiel, não basta listar benefício — todo concorrente diz que limpa bem. O que faz alguém mudar é <b style="color:#38bdf8;">sentir a experiência</b>: o cheiro, o resultado, a sensação de "agora sim ficou limpo de verdade".</p>
+    <div class="prob-list">
+      <div class="prob-item">
+        <div class="prob-icon">🔁</div>
+        <div><div class="prob-title">A barreira é o hábito, não o preço</div><div class="prob-desc">As pessoas compram a marca que já conhecem no automático. Mudar esse hábito é o trabalho real da comunicação.</div></div>
+      </div>
+      <div class="prob-item">
+        <div class="prob-icon">✨</div>
+        <div><div class="prob-title">Vender experiência, não só benefício</div><div class="prob-desc">"Limpa mais" qualquer um fala. A Fiel precisa fazer o cliente imaginar como é a vida usando Fiel — e querer aquilo.</div></div>
+      </div>
+      <div class="prob-item">
+        <div class="prob-icon">🎨</div>
+        <div><div class="prob-title">É um caminho de branding, não de oferta</div><div class="prob-desc">Exige criativos diferentes e consistência ao longo do tempo. Branding e comunicação do produto não vamos executar sozinhos — mas vamos estar envolvidos para que tudo fale a mesma língua.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — A ESTRATÉGIA -->
+  <div class="slide s-blue" data-slide="3">
+    <div class="eyebrow">Nossa estratégia</div>
+    <h2>Começar com força em <em>uma</em><br>frente: branding.</h2>
+    <p class="lead">Nada de 23 campanhas. Concentramos a verba em uma campanha de marca que apresenta a experiência Fiel para Brusque e cria o desejo de trocar. Depois que a marca estiver firme, aí sim escalamos para outras frentes.</p>
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-ico">🎯</div>
+        <h4>1. Marca em foco</h4>
+        <p>Uma campanha de branding apresentando a Fiel e sua experiência para o público certo de Brusque e região.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-ico">🎬</div>
+        <h4>2. Criativos de experiência</h4>
+        <p>Peças diferentes que mostram a sensação de usar Fiel — não só "o que faz", mas "como é". Antes/depois, resultado, emoção.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-ico">📊</div>
+        <h4>3. Medir e escalar</h4>
+        <p>Verba enxuta para validar o que funciona, com leitura clara dos números antes de aumentar o investimento.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 — LIMPA MOFO (CARRO-CHEFE) -->
+  <div class="slide s-dark" data-slide="4">
+    <div class="eyebrow">Produto carro-chefe</div>
+    <h2>O <em>Limpa Mofo</em> puxa a marca.</h2>
+    <p class="lead">Em vez de espalhar a verba entre produtos, elegemos um herói. O Limpa Mofo resolve uma dor concreta e visual — perfeito para mostrar a experiência Fiel e bater forte numa só tecla.</p>
+    <div class="spot">
+      <div class="spot-card">
+        <span class="spot-tag">🔥 Carro-chefe da campanha</span>
+        <h3>Limpa Mofo</h3>
+        <p>Resultado que se vê na hora — o tipo de produto que gera o "uau" e faz o cliente experimentar a Fiel pela primeira vez. A porta de entrada para conquistar a confiança e, depois, a casa inteira.</p>
+        <div class="spot-goal"><span class="num">100</span><span class="lbl">unidades/mês<br>é a meta</span></div>
+      </div>
+      <div>
+        <div class="hl-box" style="margin-top:0;">
+          <h3>Por que apostar nele</h3>
+          <p>Dor clara + resultado visível = o criativo se conta sozinho. É o produto ideal para campanha de branding: vende a unidade hoje e ensina o cliente a confiar na marca para amanhã.</p>
+        </div>
+        <div class="hl-box" style="border-color:rgba(56,189,248,.25);background:rgba(56,189,248,.06);">
+          <h3 style="color:#38bdf8;">Bater na mesma tecla</h3>
+          <p>Consistência vence. Repetir a mensagem do Limpa Mofo com criatividade é o que fixa a Fiel na cabeça do consumidor de Brusque.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 — METAS -->
+  <div class="slide s-mid" data-slide="5">
+    <div class="eyebrow">Metas que vamos perseguir</div>
+    <h2>Aonde queremos <em>chegar.</em></h2>
+    <p class="lead">Objetivos claros para enxergar o retorno do investimento — sem métrica de vaidade.</p>
+    <div class="stat-grid three">
+      <div class="stat-box c2">
+        <div class="stat-lbl">Loja principal</div>
+        <div class="stat-v green">10–12 → 20</div>
+        <div class="stat-s">clientes por dia — aumentar o fluxo da loja em até ~70%</div>
+      </div>
+      <div class="stat-box c1">
+        <div class="stat-lbl">Limpa Mofo</div>
+        <div class="stat-v blue">100/mês</div>
+        <div class="stat-s">unidades vendidas do produto carro-chefe</div>
+      </div>
+      <div class="stat-box c3">
+        <div class="stat-lbl">Lojas Havan + Centro</div>
+        <div class="stat-v amber">R$ 40–50k</div>
+        <div class="stat-s">faturamento atual — base para crescer com mais fluxo e recompra</div>
+      </div>
+    </div>
+    <div class="hl-box">
+      <h3>O fio condutor</h3>
+      <p>Mais gente conhecendo a marca → mais gente entrando nas lojas → mais Limpa Mofo vendido → cliente que experimenta, gosta e volta. Branding hoje, recompra amanhã.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 — INVESTIMENTO -->
+  <div class="slide s-blue" data-slide="6">
+    <div class="eyebrow">Investimento inicial</div>
+    <h2>Começar enxuto, com <em>R$ 1.000</em><br>de verba.</h2>
+    <p class="lead">A proposta é começar com inteligência: uma verba inicial de teste, concentrada em uma campanha de branding com o Limpa Mofo como herói. Validamos o que funciona e, com dados na mão, decidimos juntos o próximo passo.</p>
+    <div class="stat-grid three">
+      <div class="stat-box c1">
+        <div class="stat-lbl">Verba de mídia</div>
+        <div class="stat-v blue">R$ 1.000</div>
+        <div class="stat-s">investimento inicial em anúncios para validar a estratégia</div>
+      </div>
+      <div class="stat-box c2">
+        <div class="stat-lbl">Campanhas ativas</div>
+        <div class="stat-v green">1</div>
+        <div class="stat-s">branding focado — em vez das 23 atuais</div>
+      </div>
+      <div class="stat-box c3">
+        <div class="stat-lbl">Modelo</div>
+        <div class="stat-v amber">Teste</div>
+        <div class="stat-s">aprender rápido, escalar só o que dá resultado</div>
+      </div>
+    </div>
+    <p style="color:rgba(255,255,255,.4);font-size:.78rem;margin-top:20px;">* Valor de verba de mídia paga às plataformas. A gestão e a criação da Cardo são definidas à parte, conforme o plano combinado.</p>
+  </div>
+
+  <!-- SLIDE 8 — O QUE ENTREGAMOS -->
+  <div class="slide s-dark" data-slide="7">
+    <div class="eyebrow">O que a Cardo entrega</div>
+    <h2>Nosso papel nessa <em>jornada.</em></h2>
+    <div class="deliv-grid">
+      <div class="deliv-item"><span class="deliv-check">✓</span><span class="deliv-text"><b>Gestão da campanha de branding</b> no Meta, do zero ao otimizado</span></div>
+      <div class="deliv-item"><span class="deliv-check">✓</span><span class="deliv-text"><b>Reestruturação das contas</b> — sair das 23 campanhas para o foco</span></div>
+      <div class="deliv-item"><span class="deliv-check">✓</span><span class="deliv-text"><b>Direção dos criativos</b> com foco na experiência Fiel</span></div>
+      <div class="deliv-item"><span class="deliv-check">✓</span><span class="deliv-text"><b>Destaque do Limpa Mofo</b> como carro-chefe da comunicação</span></div>
+      <div class="deliv-item"><span class="deliv-check">✓</span><span class="deliv-text"><b>Segmentação local</b> para Brusque e região</span></div>
+      <div class="deliv-item"><span class="deliv-check">✓</span><span class="deliv-text"><b>Envolvimento no branding</b> e comunicação do produto</span></div>
+      <div class="deliv-item"><span class="deliv-check">✓</span><span class="deliv-text"><b>Acompanhamento e otimização</b> contínuos da verba</span></div>
+      <div class="deliv-item"><span class="deliv-check">✓</span><span class="deliv-text"><b>Relatório claro</b> de resultados e próximos passos</span></div>
+    </div>
+    <div class="hl-box" style="border-color:rgba(56,189,248,.25);background:rgba(56,189,248,.06);">
+      <h3 style="color:#38bdf8;">Sobre o branding</h3>
+      <p>A construção da marca e a comunicação do produto são um trabalho de longo prazo que não vamos executar sozinhos — mas vamos estar envolvidos de perto para que campanha, identidade e loja contem a mesma história.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 9 — PRÓXIMOS PASSOS -->
+  <div class="slide s-mid" data-slide="8">
+    <div class="eyebrow">Próximos passos</div>
+    <h2>Começar é simples e <em>rápido.</em></h2>
+    <div class="steps-grid">
+      <div class="step"><div class="step-n">1</div><div><div class="step-title">Aprovação e alinhamento</div><div class="step-desc">Validamos a estratégia, a verba de R$ 1.000 e o foco no Limpa Mofo.</div></div></div>
+      <div class="step"><div class="step-n">2</div><div><div class="step-title">Limpeza das contas</div><div class="step-desc">Encerramos as 23 campanhas e organizamos tudo para a campanha de branding.</div></div></div>
+      <div class="step"><div class="step-n">3</div><div><div class="step-title">Criativos e campanha</div><div class="step-desc">Direcionamos as peças com a experiência Fiel e subimos a campanha.</div></div></div>
+      <div class="step" style="border-color:rgba(74,222,128,.25);background:rgba(74,222,128,.06);"><div class="step-n" style="background:rgba(74,222,128,.15);border-color:rgba(74,222,128,.3);color:#4ade80;">★</div><div><div class="step-title">No ar e medindo 🚀</div><div class="step-desc">Acompanhamos os números e decidimos juntos quando e como escalar.</div></div></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10 — FECHAMENTO -->
+  <div class="slide s-cta" data-slide="9">
+    <div class="badge">Vamos construir a marca Fiel</div>
+    <h1>Menos campanhas.<br>Mais <em>marca.</em><br>Mais cliente na loja.</h1>
+    <p class="lead">A Fiel já tem o produto e as lojas. Falta a marca ocupar o lugar certo na cabeça de Brusque. É isso que a gente vai construir — começando hoje, com foco e medindo cada passo.</p>
+    <div class="contact-row">
+      <div class="contact-item"><div class="c-lbl">Falar com a Cardo</div><div class="c-val">📱 (47) 0000-0000</div></div>
+      <div class="contact-item"><div class="c-lbl">E-mail</div><div class="c-val">agencia@cardomarketing.com.br</div></div>
+    </div>
+    <div class="div"></div>
+    <p style="color:rgba(255,255,255,.4);font-size:.82rem;font-weight:700;">Cardo Marketing &nbsp;·&nbsp; Proposta para Fiel Limpeza — Brusque/SC &nbsp;·&nbsp; 2026</p>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<div class="nav">
+  <button class="nav-arr" id="prev">←</button>
+  <div id="dots"></div>
+  <button class="nav-arr" id="next">→</button>
+  <span class="slide-num" id="slideNum">1 / 10</span>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dotsEl = document.getElementById('dots');
+const numEl  = document.getElementById('slideNum');
+let cur = 0;
+
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='nav-dot'+(i===0?' active':'');
+  d.onclick=()=>go(i);
+  dotsEl.appendChild(d);
+});
+
+function go(n){
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('out');
+  setTimeout(()=>slides[cur].classList.remove('out'), 400);
+  cur = (n + slides.length) % slides.length;
+  slides[cur].classList.add('active');
+  document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+  numEl.textContent = `${cur+1} / ${slides.length}`;
+}
+
+document.getElementById('next').onclick = ()=>go(cur+1);
+document.getElementById('prev').onclick = ()=>go(cur-1);
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ') go(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') go(cur-1);
+});
+</script>
+</body>
+</html>
